@@ -15,6 +15,10 @@ const newsRoutes = require('./routes/news');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// увеличить лимит для JSON и urlencoded
+app.use(express.json({ limit: '10mb' })); // по умолчанию 100kb
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
+
 // Middleware
 app.use(helmet());
 app.use(morgan('dev'));

@@ -1,6 +1,6 @@
-body {
+body, #root {
   margin: 0;
-  background-color: #520000; /* тут ставишь цвет */
+  background-color: #FDF6EC; /* твой цвет */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;

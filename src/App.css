@@ -1,12 +1,10 @@
 .App {
   text-align: center;
-  background-color: #741d1d; /* тут ставишь цвет */
 }
 
 body {
   margin: 0;
   padding: 0;
-  background-color: #400909; /* цвет фона всего приложения */
 }
 
 

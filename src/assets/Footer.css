@@ -1,82 +1,106 @@
+/* Базовые стили футера */
 .footer {
-  width: 1440px;
-  height: 126px;
+  background-color: #F5E8D8; /* чуть темнее тела */
+  color: #5A4A3F; /* мягкий тёмно-коричневый для текста */
+  padding: 50px 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  border-top: 1px solid #E8DCC9;
+}
+
+/* Контейнер с сеткой */
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 30px;
+  align-items: start;
+  max-width: 1200px;
   margin: 0 auto;
-  background-color: white;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  box-sizing: border-box;
 }
 
-.footer-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  gap: 40px;
-}
-
-.logo-container {
-  display: flex;
-  align-items: center;
+/* Логотип */
+.footer-logo-block {
+  grid-column: span 2;
 }
 
 .footer-logo {
-  width: 64px;
-  height: 44px;
-  object-fit: contain;
-  transform: scale(1.5);
+  max-width: 150px;
+  transition: transform 0.3s ease;
 }
 
-.footer-links {
+.footer-logo:hover {
+  transform: scale(1.05);
+}
+
+/* Навигация */
+.footer-nav {
   display: flex;
-  gap: 24px;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.footer-links a {
+.footer-link {
+  color: #5A4A3F;
   text-decoration: none;
-  color: #333;
-  font-size: 14px;
-  transition: color 0.2s;
+  transition: color 0.3s ease, transform 0.3s ease;
 }
 
-.footer-links a:hover {
-  color: #ff6b35;
+.footer-link:hover {
+  color: #3E2F1C; /* чуть темнее при hover */
+  transform: translateX(3px);
 }
 
-.social-icons {
+/* Социальные сети */
+.footer-social {
   display: flex;
-  gap: 8px;
+  gap: 16px;
+  margin-top: 15px;
 }
 
-.social-icons a {
-  width: 24px;
-  height: 24px;
-  display: inline-block;
-  vertical-align: middle;
-  margin-right: 8px;
+.social-link img {
+  width: 28px;
+  height: 28px;
+  transition: transform 0.3s ease, filter 0.3s ease;
+  filter: brightness(0.8);
 }
 
-.phone {
+.social-link:hover img {
+  transform: scale(1.2);
+  filter: brightness(1);
+}
+
+/* Контактный телефон */
+.footer-contact {
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: #333;
+  gap: 10px;
+  margin-top: 25px;
 }
 
-.phone img {
-  width: 16px;
-  height: 16px;
+.phone-icon {
+  width: 18px;
+  height: 18px;
 }
 
-.designer {
+.phone-number {
+  color: #3E2F1C;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.phone-number:hover {
+  color: #2B1F12;
+}
+
+/* Кредиты дизайнера */
+.footer-credit {
+  margin-top: 25px;
   font-size: 12px;
-  color: #333;
-  font-style: italic;
+  color: #8C7C6B;
+}
 
+.designer-name {
+  color: #5A4A3F;
+  font-weight: 600;
 }
