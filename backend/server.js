@@ -15,28 +15,28 @@ const newsRoutes = require('./routes/news');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// увеличить лимит для JSON и urlencoded
-app.use(express.json({ limit: '10mb' })); // по умолчанию 100kb
-app.use(express.urlencoded({ limit: '10mb', extended: true }));
-
-// Middleware
+// ✅ 1. Middleware — порядок важен!
 app.use(helmet());
 app.use(morgan('dev'));
 app.use(cors({ origin: 'http://localhost:3000' }));
-app.use(express.json());
 
-// API Routes
+// ✅ 2. Разрешаем JSON и формы
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
+
+// ✅ 3. Маршруты
 app.use('/api/products', productRoutes);
 app.use('/api/promotions', promotionRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/news', newsRoutes);
 
-// Health check
+// ✅ 4. Health check
 app.get('/', (req, res) => {
   res.json({ message: 'Severnochka API is running!' });
 });
 
+// ✅ 5. Запуск
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

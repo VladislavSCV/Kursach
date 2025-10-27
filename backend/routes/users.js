@@ -5,26 +5,37 @@ const pool = require('../db/pool');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-// POST /api/users/register - регистрация
+// Функция для красивого логирования с временем
+const log = (msg, data = null) => {
+  const time = new Date().toISOString();
+  if (data) console.log(`[${time}] [REGISTER] ${msg}:`, data);
+  else console.log(`[${time}] [REGISTER] ${msg}`);
+};
+
 router.post('/register', async (req, res) => {
   const { name, email, phone, photo } = req.body;
+  log('Получен запрос /register', { name, email, phone });
 
   if (!name || !phone) {
+    log('❌ Ошибка валидации — отсутствует имя или телефон');
     return res.status(400).json({ error: 'Имя и телефон обязательны' });
   }
 
   try {
     // Проверяем, существует ли пользователь
+    log('Проверяем, существует ли пользователь с телефоном', phone);
     const existingUser = await pool.query(
       'SELECT * FROM users WHERE phone = $1',
       [phone]
     );
 
     if (existingUser.rows.length > 0) {
+      log('⚠️ Пользователь уже существует', existingUser.rows[0]);
       return res.status(409).json({ error: 'Пользователь с таким телефоном уже существует' });
     }
 
     // Добавляем нового пользователя
+    log('Добавляем нового пользователя в базу');
     const result = await pool.query(
       `INSERT INTO users (name, email, phone, photo)
        VALUES ($1, $2, $3, $4)
@@ -33,6 +44,7 @@ router.post('/register', async (req, res) => {
     );
 
     const user = result.rows[0];
+    log('✅ Пользователь успешно добавлен', user);
 
     // Генерируем JWT
     const token = jwt.sign(
@@ -41,9 +53,11 @@ router.post('/register', async (req, res) => {
       { expiresIn: '7d' }
     );
 
+    log('✅ JWT токен успешно создан');
     res.status(201).json({ token, user });
+    log('✅ Регистрация завершена успешно');
   } catch (err) {
-    console.error(err.message);
+    log('❌ Ошибка при регистрации пользователя', err.message);
     res.status(500).json({ error: 'Ошибка сервера' });
   }
 });
